@@ -1,0 +1,559 @@
+﻿@*
+    <div class="main-content side-content pt-0">
+    <div class="container-fluid">
+    <div class="inner-body">
+    <div class="row" id="container">
+
+    <img style="width:100px; height:100px; margin:auto" src="~/assets/img/loader.svg" />
+
+    </div>
+    </div>
+    </div>
+    </div>
+*@
+
+
+
+
+<div class="main-content side-content pt-0">
+    <div class="container-fluid">
+        <div class="inner-body">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <h2 class="main-content-title tx-24 mg-b-5" id="hiLabel">Selam!</h2>
+                    @*<ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Project Dashboard</li>
+                        </ol>*@
+                </div>
+            </div>
+            <!-- End Page Header -->
+            <div class="row row-sm">
+                <div class="row">
+                    <div class="col-sm-4" id="container">
+                        <img style="width:100px; height:100px; margin:auto" src="~/assets/img/loader.svg" />
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-12 col-md-12 col-xl-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="card-header pb-0 border-bottom-0">
+                                        <label class="main-content-label mb-2 pt-1">Yaklaşan İzin Günleri</label>
+                                        <p class="tx-12 mb-0 text-muted">sales activities are the tactics that salespeople use to achieve</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul id="upcomingRequest" class="visitor mb-0 d-block users-images list-unstyled list-unstyled-border">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-12 col-md-12 col-xl-12">
+                            <div class="card custom-card">
+                                <div class="card-body">
+                                    <div class="card-header pb-0 border-bottom-0">
+                                        <label class="main-content-label mb-2 pt-1">Yaklaşan Doğum Günleri</label>
+                                        <p class="tx-12 mb-0 text-muted">sales activities are the tactics that salespeople use to achieve</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul id="upcomingBirthday" class="visitor mb-0 d-block users-images list-unstyled list-unstyled-border">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div id="chartdiv"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="card custom-card">
+                            <div class="card-header border-bottom-0 pb-0">
+                                <div>
+                                    <div class="d-flex">
+                                        <label class="main-content-label my-auto pt-2">İzin Listesi</label>
+                                    </div>
+                                    <span class="d-block tx-12 mt-2 mb-0 text-muted"> project work involves a group of students investigating . </span>
+                                </div>
+                            </div>
+                            <div class="card-body" id="requestEmpContainer">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+</div>
+
+
+
+
+<script src="../../assets/plugins/jquery/jquery.min.js"></script>
+<!-- Internal Flot Chart js-->
+<script src="../../assets/plugins/jquery.flot/jquery.flot.js"></script>
+<script src="../../assets/plugins/jquery.flot/jquery.flot.pie.js"></script>
+<script src="../../assets/plugins/jquery.flot/jquery.flot.resize.js"></script>
+<script src="../../assets/js/chart.flot.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+
+<script>
+
+
+
+         $(document).ready(function(){
+             GetNameFromToken();
+             GetEmployees();
+             getUsedRequests();
+             GetUpcomingDaysOff();
+             GetUpcomingBirthday();
+             GetAllRequestContainer();
+         });
+
+
+
+         GetNameFromToken=()=>{
+             var token = document.cookie;
+             var base64Url = token.split('.')[1];
+             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+             var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+             }).join(''));
+             var parseToken = JSON.parse(jsonPayload);
+             var name = parseToken.name;
+             var text = "Selam " + name ;
+
+             $("#hiLabel").html(text);
+
+         }
+
+
+
+         GetEmployees=()=>{
+             var token = document.cookie;
+             var base64Url = token.split('.')[1];
+             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+             var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+             }).join(''));
+             var parseToken = JSON.parse(jsonPayload);
+             var employeeId = parseToken.id;
+         $.get('/Home/GetPermissions', {employeeId:employeeId},function(data,textStatus,jqXHR){
+
+
+
+             var html="";
+             let requestDay = Number(data.data.totalPermissionDay) ;
+             let usedDays = Number(data.data.usedPermissionDay) ;
+             let result = requestDay - usedDays;
+             result = result.toFixed(2);
+             let requestTypeId = data.data.requestTypeId;
+
+
+             let vvvv = (Number((usedDays * 100)/requestDay));
+             let value = Math.round(vvvv);
+             let y = value%10;
+             if(y>=5){
+                 let z = 10-y;
+                 value = value + z;
+             }
+             else{
+                 value = value + y;
+             }
+
+             html+=` <div class="col-sm-12 col-md-12 col-xl-12">
+                 <div class="card custom-card">
+                     <div class="card-body">
+                         <div class="card-block">
+                             <div class="row align-items-center justify-content-center">
+                                 <div class="col">
+                                     <p class="mb-1 tx-inverse">İzin Bilgilerim/Yıllık izin</p>
+                                     <div>
+                                         <h4 class="dash-25 mb-2">${result}</h4>
+                                     </div>
+                                     <div class="expansion-value d-flex tx-inverse">
+                                         <strong><i class="fas fa-caret-down me-1 text-danger"></i> ${usedDays}</strong>
+                                         <strong class="ms-auto"><i class="fas fa-caret-up me-1 text-success"></i>${requestDay}</strong>
+                                     </div>
+                                     <div class="progress">
+                                         <div aria-valuemax="100" aria-valuemin="${value}" aria-valuenow="80" class="progress-bar progress-bar-xs wd-${value}p" role="progressbar"></div>
+                                     </div>
+                                     <div class="expansion-label d-flex text-muted">
+                                         <span>Kullanılan İzin Günü</span>
+                                         <span class="ms-auto">Toplam İzin Günü</span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <ul class="task-list" id="taskList">
+
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
+             </div>`;
+
+
+             $('#container').html(html);
+         })
+
+         }
+
+
+          getUsedRequests=()=>{
+             var token = document.cookie;
+             var base64Url = token.split('.')[1];
+             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+             var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+             }).join(''));
+             var parseToken = JSON.parse(jsonPayload);
+             var employeeId = parseToken.id;
+         $.get('/Home/GetUsedRequests', {employeeId:employeeId},function(data,textStatus,jqXHR){
+                     var html = "";
+
+                 for(var i = 0 ; i< data.data.length; i++){
+                     var description = data.data[i].description;
+                     var date = data.data[i].startDate.slice(0,10) + " " + data.data[i].startTime.slice(11,16);
+                     var endDate = data.data[i].endDate.slice(0,10) + " " + data.data[i].endTime.slice(11,16);
+                     var totalDay = data.data[i].totalDuration;
+
+
+                     html += `<li>
+                                     <i class="task-icon bg-success"></i>
+                                     <h6>${description}<span class="float-end text-muted fs-11">${date} - ${endDate}</span></h6>
+                                     <p class="text-muted fs-12">${totalDay} günlük izin kullanıldı</p>
+                                 </li>`;
+                                 if(i==3){
+                                     break;
+                                 }
+                 }
+             $('#taskList').html(html);
+             })
+         }
+
+
+
+          GetUpcomingDaysOff=()=>{
+             $.get('/Home/GetUpcomingRequests',function(data,textStatus,jqXHR){
+                              var classColors = ["bg-danger disabled","bg-warning disabled","bg-primary disabled","bg-success disabled","bg-secondary disabled","bg-danger","bg-light","bg-info","bg-dark disabled","bg-danger disabled","bg-warning disabled"];
+
+                 var html ="";
+
+                 for(var i = 0;i<data.data.length;i++){
+
+
+                         var name = data.data[i].user.name;
+                         var surname = data.data[i].user.surname;
+                         var description = data.data[i].request.description;
+                         var date = data.data[i].request.startDate.slice(0,10);
+                         var totalDuration = data.data[i].request.totalDuration;
+                           var randomNumber = Math.floor(Math.random()*10);
+                        var colorText = classColors[randomNumber];
+                        var nameChar = name[0].toUpperCase() + "" + surname[0].toUpperCase();
+
+
+                     html += `<li class="media d-flex mb-0">
+                                      <div style="margin-right:8px" class="main-avatar ${colorText}">
+                                                                            ${nameChar}
+                                     </div>
+                                     <div class="media-body mb-1">
+                                         <div class="float-end"><small>${date}</small></div>
+                                         <h5 class="media-title tx-15 mb-0">${name} ${surname}</h5>
+                                         <small class="text-muted">${description} - ${totalDuration} günlük izin</small>
+                                     </div>
+                                 </li>`;
+                 }
+             $('#upcomingRequest').html(html);
+             })
+         }
+
+         GetUpcomingBirthday=()=>{
+             var classColors = ["bg-danger disabled","bg-warning disabled","bg-primary disabled","bg-success disabled","bg-secondary disabled","bg-danger","bg-light","bg-info","bg-dark disabled","bg-danger disabled","bg-warning disabled"];
+             $.get('/Home/GetUpComingBirthdays',function(data,textStatus,jqXHR){
+                 var html = "";
+
+                    var month = new Array();
+                    month[1] = "Ocak";
+                    month[2] = "Şubat";
+                    month[3] = "Mart";
+                    month[4] = "Nisan";
+                    month[5] = "Mayıs";
+                    month[6] = "Haziran";
+                    month[7] = "Temmuz";
+                    month[8] = "Ağustos";
+                    month[9] = "Eylül";
+                    month[10] = "Ekim";
+                    month[11] = "Kasım";
+                    month[12] = "Aralık";
+
+
+
+                 var d = new Date();
+
+                 for(var i = 0;i<data.data.length;i++){
+                         var name = data.data[i].name;
+                         var surname = data.data[i].surname;
+                         var date = data.data[i].birthDate.slice(0,10);
+                         var year = date.slice(0,4);
+
+                        var age = d.getFullYear() - year;
+                        var birthMonth = parseInt(date.slice(5,7));
+                        var randomNumber = Math.floor(Math.random()*10);
+                        var colorText = classColors[randomNumber];
+                        var nameChar = name[0].toUpperCase() + "" + surname[0].toUpperCase();
+
+                         html += `<li style="margin-top:10px" class="media d-flex mb-0">
+                                      <div style="margin-right:8px" class="main-avatar ${colorText}">
+                                                                            ${nameChar}
+                                     </div>
+                                     <div class="media-body mb-1">
+                                         <div class="float-end"><small>${date.slice(8,10)} ${month[birthMonth]}</small></div>
+                                         <h5 class="media-title tx-15 mb-0">${name} ${surname}</h5>
+                                         <small class="text-muted">${age} yaşında!</small>
+                                         <small class="text-muted"> </small>
+                                     </div>
+                                 </li>
+                                 `;
+                                 if(i==4){
+                                     break;
+                                 }
+                 }
+             $('#upcomingBirthday').html(html);
+
+             })
+         }
+
+        GetAllRequestContainer=()=>{
+             var html = "";
+             var token = document.cookie;
+             var base64Url = token.split('.')[1];
+             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+             var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+             }).join(''));
+             var parseToken = JSON.parse(jsonPayload);
+             var managerId = parseToken.id;
+              $.get('/Home/GetRequestsForTeamLeader',{managerId:managerId},function(data,textStatus,jqXHR){
+
+
+                  for(var i = 0;i<data.data.length;i++){
+
+
+             html+=`<div class="main-contact-item" onclick="GetRequestDetails(${data.data[i].request.id})">
+                                        <div class="main-img-user online"><img alt="avatar" src="../../assets/img/users/2.jpg"></div>
+                                        <div class="main-contact-body">
+                                            <h6>${data.data[i].user.name} ${data.data[i].user.surname}</h6><span class="text">${data.data[i].request.startDate.slice(0,10)} ${data.data[i].request.startTime.slice(11,16)} => ${data.data[i].request.endDate.slice(0,10)} ${data.data[i].request.endTime.slice(11,16)}   ${data.data[i].request.totalDuration} günlük izin</span>
+                                        </div>
+                                    </div>`;
+                  }
+
+              $('#requestEmpContainer').html(html);
+              });
+         }
+
+
+
+         GetRequestDetails=(requestId)=>{
+             var html = "";
+             html = `<div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Talep Detayı</h5>
+            <button type="button" id="modalCloseButton" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Başlangıç Tarihi:</label>
+                        <label id="startDateLabel" style="text-align:bold">null</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Bitiş Tarihi:</label>
+                        <label id="endDateLabel" style="text-align:bold">null</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Toplam Süre:</label>
+                        <label id="totalDurationLabel" style="text-align:bold">null Gün</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Talep Tipi:</label>
+                        <label id="requestTypeLabel" style="text-align:bold">null </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>İzin Tipi:</label>
+                        <label id="permissionTypeLabel" style="text-align:bold">null</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Yerine Bakacak Kişi:</label>
+                        <label id="replaceEmployeeLabel" style="text-align:bold">null</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>Açıklama:</label>
+                        <label id="descriptionLabel" style="text-align:bold">null</label>
+                    </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="denyRequestButton" class="btn btn-secondary" data-dismiss="modal">Reddet</button>
+            <button type="button" id="acceptRequestButton" class="btn btn-primary">Onayla</button>
+          </div>
+        </div>
+      </div>`;
+      $('#exampleModalCenter').html(html);
+             $.get('/Home/GetRequestDetails',{requestId:requestId},function(data,textStatus,jqXHR){
+                 var startDate = data.data.request.startDate.slice(0,10);
+                 var startTime = data.data.request.startTime.slice(11,16);
+                 var endDate = data.data.request.endDate.slice(0,10);
+                 var endTime = data.data.request.startTime.slice(11,16);
+                 var totalDuration = data.data.request.totalDuration;
+                 var requestType = data.data.requestType.name;
+                 var permissionType = data.data.permissionType.name;
+                 var replaceEmployeeName = data.data.user.name;
+                 var replaceEmployeeSurname = data.data.user.surname;
+                 var description = data.data.request.description;
+
+                 var startDay = startDate + " " + startTime;
+                 var endDay = endDate + " " + endTime;
+                 var replaceEmployee = replaceEmployeeName + " " + replaceEmployeeSurname;
+
+                 $('#startDateLabel').text(startDay);
+                 $('#endDateLabel').text(endDay);
+                 $('#totalDurationLabel').text(totalDuration);
+                 $('#requestTypeLabel').text(requestType);
+                 $('#permissionTypeLabel').text(permissionType);
+                 $('#replaceEmployeeLabel').text(replaceEmployee);
+                 $('#descriptionLabel').text(description);
+                 $('#denyRequestButton').click(function(){
+                     answer = 2;
+                     $.get('/Home/SaveRequestAnswer',{requestId:requestId,answer:answer});
+                        swal("Başarıyla Kaydedildi!","Talep Başarıyla Reddedildi!","success").then(function(){
+                        window.location.reload();
+                     });
+                 });
+
+                 $('#acceptRequestButton').click(function(){
+                     answer = 1;
+                     $.get('/Home/SaveRequestAnswer',{requestId:requestId,answer:answer});
+                     swal("Başarıyla Kaydedildi!","Talep Başarıyla Onaylandı!","success").then(function(){
+                     window.location.reload();
+                     });
+                 });
+            });
+
+      $('#exampleModalCenter').modal('show');
+         }
+
+
+       $('#modalCloseButton').click(function(){
+                    $('#exampleModalCenter').modal("hide");
+                });
+         function closeModalButton(){
+                    $('#exampleModalCenter').modal("hide");
+         }
+
+
+         $.get('/Home/GetDepartmentInfos',function(data,textStatus,jqXHR){
+            var EmployeeCounter = 0;
+     am5.ready(function() {
+    var root = am5.Root.new("chartdiv");
+
+    root.setThemes([
+      am5themes_Animated.new(root)
+    ]);
+
+    var chart = root.container.children.push(am5percent.PieChart.new(root, {
+      radius: am5.percent(90),
+      innerRadius: am5.percent(50),
+      layout: root.horizontalLayout
+    }));
+
+    var series = chart.series.push(am5percent.PieSeries.new(root, {
+      name: "Series",
+      valueField: "sales",
+      categoryField: "country"
+    }));
+
+    var donutDataArray = [];
+
+    for(var i = 0;i<data.data.length;i++){
+        donutDataArray.push({
+      country:data.data[i].text,
+      sales: data.data[i].value
+    });
+    }
+    series.data.setAll(donutDataArray);
+
+    // Disabling labels and ticks
+    series.labels.template.set("visible", false);
+    series.ticks.template.set("visible", false);
+
+    // Adding gradients
+    series.slices.template.set("strokeOpacity", 0);
+    series.slices.template.set("fillGradient", am5.RadialGradient.new(root, {
+      stops: [{
+        brighten: -0.8
+      }, {
+        brighten: -0.8
+      }, {
+        brighten: -0.5
+      }, {
+        brighten: 0
+      }, {
+        brighten: -0.5
+      }]
+    }));
+
+    var legend = chart.children.push(am5.Legend.new(root, {
+      centerY: am5.percent(50),
+      y: am5.percent(50),
+      layout: root.verticalLayout
+    }));
+    // set value labels align to right
+    legend.valueLabels.template.setAll({ textAlign: "right" })
+    // set width and max width of labels
+    legend.labels.template.setAll({
+      maxWidth: 300,
+      width: 300,
+      oversizedBehavior: "wrap"
+    });
+
+    legend.data.setAll(series.dataItems);
+
+    series.appear(1000, 100);
+
+    });
+    });
+
+
+
+</script>
+
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>

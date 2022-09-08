@@ -1,0 +1,1262 @@
+﻿@model BB.PersonelYonetimTakipSistemi.Model.Employees.EmployeeDto
+@{
+    ViewData["Title"] = "ProfileEmployee";
+}
+
+
+
+
+
+
+<div style="margin-top:15px" class="main-content side-content pt-0">
+
+    <div class="container-fluid">
+        <div class="inner-body">
+            <div class="p-3 mb-3">
+                <div class='toggle'>
+                    <div class='tabs'>
+                        <div class='tab active'>Genel Bilgiler</div>
+                        <div class='tab'>Kariyer</div>
+                        <div class='tab'>Kişisel Bilgiler</div>
+                        <div class='tab'>Diğer Bilgiler</div>
+                        <div class='tab'>İzin</div>
+                        <div class='tab'>Mesai</div>
+                    </div>
+                    <div class='panels'>
+                        <div class='panel'><div id="containerGenelBilgiler"></div></div>
+                        <div class='panel'><div id="containerKariyer"></div></div>
+                        <div class='panel'><div id="containerKisiselBilgiler"></div></div>
+                        <div class='panel'><div id="containerDigerBilgiler"></div></div>
+                        <div class='panel'><div id="containerizin"></div></div>
+                        <div class='panel'><div id="containermesai"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section id="genelBilgiler">
+    <div id="containerGenelBilgiler"></div>
+</section>
+
+<section id="kariyer">
+    <div id="containerKariyer"></div>
+</section>
+
+<section id="kisiselBilgiler">
+    <div id="containerKisiselBilgiler"></div>
+</section>
+
+<section id="digerBilgiler">
+    <div id="containerDigerBilgiler"></div>
+</section>
+
+<section id="izin">
+    <div id="containerizin"></div>
+</section>
+
+
+<section id="mesai">
+    <div id="containermesai"></div>
+</section>
+
+
+<div class="modal fade bd-example-modal-lg" id="modalRequestEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">İzin Talep Et</h5>
+                <button type="button" class="close" data-dismiss="modal" id="closeModal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">İzin Günü</h6>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select-lg select2" name="RequestType" id="requestEmployeeDayDropList">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Toplam Gün</h6>
+                </div>
+                <div class="form-group"> 
+                    <input type="text" disabled class="form-control" id="AdminPanelDayOfftotalDayValue" placeholder="Toplam Gün" name="Toplam Gün" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <div>
+                        <h6 class="main-content-label">Başlangıç Tarihi</h6>
+                    </div>
+                    <div class="datepicker">
+                        <input type="date" id="AdminPanelDayOffStartDate" value="2018-07-03" name="startDate">
+                        <span></span>
+                        <input type="time" id="AdminPanelDayOffStartTime" value="08:00" name="startTime">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <div>
+                        <h6 class="main-content-label">Bitiş Tarihi</h6>
+                    </div>
+                    <div class="datepicker">
+                        <input type="date" id="AdminPanelDayOffEndDate" value="2018-07-03" name="endDate">
+                        <span></span>
+                        <input type="time" id="AdminPanelDayOffEndTime" value="08:00" name="endTime">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Açıklama</h6>
+                </div>
+                <textarea id="AdminPanelDayOffrequestDecription" style="resize:none;overflow:auto;" rows="5" required placeholder="Talep Açıklaması" class="form-control input-md" name="description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Yerine Bakacak Kişi</h6>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select-lg select2" name="replaceemployeecontainerAdminPanel" id="replaceemployeecontainerAdminPanel">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Dönüş Tarihi</h6>
+                </div>
+                <div class="datepicker">
+                    <input type="date" id="date" value="2018-07-03">
+                    <span></span>
+                    <input type="time" id="time" value="08:00">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">İptal</button>
+        <button onclick="CreateRequestEmployee()" class="btn btn-primary">Talep Oluştur</button>
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade bd-example-modal-xl" id="modalShiftbtn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Fazla Mesai Talep Et</h5>
+                <button type="button" class="close" data-dismiss="modal" id="closeShiftModal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br />
+            <div class="row">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+
+                                    <div>
+                                        <h6 class="main-content-label">Başlangıç Tarihi</h6>
+                                    </div>
+                                    <div class="datepicker">
+                                        <input type="date" id="EmployeeShiftStartDate" value="2022-06-01" name="startDate">
+                                        <input type="time" id="EmployeeShiftStartTime" value="08:30" name="startTime">
+                                    </div>
+                                    <span></span>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div>
+                                        <h6 class="main-content-label">Bitiş Tarihi</h6>
+                                    </div>
+                                    <div class="datepicker">
+                                        <input type="date" id="EmployeeShiftEndDate" value="2022-06-01" name="EmployeeShiftEndDate">
+                                        <input type="time" id="EmployeeShiftEndTime" value="08:30" name="EmployeeShiftEndTime">
+                                    </div>
+                                    <span></span>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <div>
+                                        <h6 class="main-content-label">Saat</h6>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group mb-3">
+                                            <input type="text" id="EmployeeShiftDuration" disabled="disabled" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Gün</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <div>
+                                            <h6 class="main-content-label">Açıklama</h6>
+                                        </div>
+                                        <textarea id="EmployeeShiftDescription" style="resize:none;overflow:auto;" rows="5" required placeholder="Talep Açıklaması" class="form-control input-md" name="description"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary" onclick="CreateShiftEmployee()">Talep Oluştur</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="../../assets/plugins/jquery/jquery.min.js"></script>
+
+
+<script>
+
+
+
+
+
+
+    $(document).ready(function(){
+        var employeeId = @ViewBag.Id;
+         $.get('/ListEmployee/GetEmployeeDetail',{employeeId:employeeId},function(data,textStatus,jqXHR){
+        GenelBilgiler(data);
+        KariyerBilgileri();
+         var userId =data.data.user.id;
+        $.get('/ListEmployee/GetUserDetail',{userId:userId},function(data1,textStatus,jqXHR){
+        KisiselBilgiler(data1);
+        DigerBilgiler(data1);
+        })
+        IzinBilgiler();
+        MesaiBilgiler();
+        GetEmployeePermissionTypes();
+        GetEmployeeForReplaceAdminPanel(data.data.career.departmentId,data.data.career.branchId,data.data.career.statusId);
+        })
+    });
+
+
+    GenelBilgiler=(data)=>{
+
+            var html = "";
+            var name = data.data.user.name;
+            var surname = data.data.user.surname;
+            var email = data.data.employee.companyEmail;
+            var startDate = data.data.employee.startDateToCompany;
+            var departmentId = data.data.department.name;
+            var statusId = data.data.status.name;
+            var companyID = data.data.company.name;
+            var managerID = data.data.department.managerId;
+            var userName = data.data.employee.userName;
+            var workTypeID = data.data.workType.name;
+            
+
+            html = `
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-3 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class="text-dark-bold">Profil</h3>
+                                </div>
+                                <div class="card-body text-center item-user">
+                                    <div class="profile-pic">
+                                        <div class="profile-pic-img">
+                                            <span class="bg-success dots" data-bs-toggle="tooltip" data-bs-placement="top" title="online"></span>
+                                            <img src="../../assets/img/users/1.jpg" class="rounded-circle" alt="user">
+                                        </div>
+                                        <a href="#" class="text-dark"><h5 class="mt-3 mb-0 font-weight-semibold">${name} ${surname}</h5></a>
+                                    </div>
+                                </div>
+                                <ul class="item1-links nav nav-tabs  mb-0">
+                                    <li class="nav-item">
+                                        <a data-bs-target="#orders" class="nav-link active" data-bs-toggle="tab" role="tablist"><i class="ti-user icon1"></i> My orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-bs-target="#myaddres" class="nav-link" data-bs-toggle="tab" role="tablist"><i class="ti-save-alt icon1"></i> My Address</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-bs-target="#trackorder" class="nav-link" data-bs-toggle="tab" role="tablist"><i class="ti-truck icon1"></i> Track Order</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-bs-target="#whishlist" class="nav-link" data-bs-toggle="tab" role="tablist"><i class="ti-heart icon1"></i> Wishlist</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-bs-target="#wallet" class="nav-link" data-bs-toggle="tab" role="tablist"><i class="ti-wallet icon1"></i> Wallet</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-bs-target="#profile" class="nav-link" data-bs-toggle="tab" role="tablist"><i class="ti-credit-card icon1"></i> My Profile</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="signin.html" class="nav-link"><i class="ti-power-off icon1"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class="text-dark-bold">Genel Bilgiler</h3>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Adı</p>
+                                                <input id="nameValue" type="text" class="form-control" value="${name}"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Soyadı</p>
+                                                <input id="surnameValue" type="text" class="form-control" value="${surname}" />
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:50px" class="row">
+                                            <div class="col-md-6">
+                                                <p>Email</p>
+                                                <input id="emailValue" type="text" class="form-control" value="${email}"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p> Başlama tarihi</p>
+                                                 <div class="input-group mb-3">
+                                                <input type="text" id="startDate" class="form-control" value="${startDate.slice(0,10)}" aria-label="${startDate.slice(0,10)}" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon1">yyyy/aa/gg veya yyyy-aa-gg</span>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:50px" class="row">
+                                            <div class="col-md-6">
+                                                <p>Departman</p>
+                                                <div class="form-group">
+                                                    <select class="form-control select-lg select2" name="departmentdrop" id="DepartmentDropList">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Statü</p>
+                                                <div class="form-group">
+                                                    <select class="form-control select-lg select2" name="statusdrop" id="StatusDropList">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:50px" class="row">
+                                            <div class="col-md-6">
+                                                <p>Şirket</p>
+                                                <input type="text" id="companyValue" disabled class="form-control" value="${companyID}" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Yöneticisi</p>
+                                                <input type="text" disabled class="form-control" value="${managerID}" />
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:50px" class="row">
+                                            <div class="col-md-6">
+                                                <p>Kullanıcı Adı</p>
+                                                <input type="text" id="username" class="form-control" value="${userName}" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Çalışma tipi</p>
+                                                <div class="form-group">
+                                                    <select class="form-control select-lg select2" name="worktypedrop" id="WorkTypeDropList">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="row">
+                                            </div>
+                                        <div class="row">
+                                            <div class = col-md-11>
+                                            </div>
+                                            <div class = col-md-1>
+                                            <button type="button" onclick="GeneralInformationUpdate()" class="btn ripple btn-rounded btn-primary">Güncelle</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+         
+        </div>`;
+
+        $('#containerGenelBilgiler').html(html);
+
+
+        //-------------------------------DEPARTMENTS-------------------------//
+        var htmldepartmentbox = "";
+
+        $.get('/Home/GetAllDepartmentEmployees',function(data2,textStatus2,jqXHR){
+            for(var i = 0; i<data2.data.length;i++){
+
+                if(data.data.department.id == data2.data[i].id){
+                    htmldepartmentbox+=`<option selected="selected" value="${data.data.department.id}">${data.data.department.name}</option>`;
+                }else{
+                    htmldepartmentbox+=`<option value="${data2.data[i].id}">${data2.data[i].name}</option>`;
+                }
+
+            }
+            $('#DepartmentDropList').html(htmldepartmentbox);
+        })
+        //-------------------------------DEPARTMENTS-END-------------------------//
+
+
+
+
+        //-------------------------------STATUS-------------------------//
+        var htmlstatusbox = "";
+        $.get('/ListEmployee/GetAllStatuses',function(data2,textStatus2,jqXHR){
+            for(var i = 0; i<data2.data.length;i++){
+
+                if(data.data.status.id == data2.data[i].id){
+                    htmlstatusbox+=`<option selected="selected" value="${data.data.status.id}">${data.data.status.name}</option>`;
+                }else{
+                    htmlstatusbox+=`<option value="${data2.data[i].id}">${data2.data[i].name}</option>`;
+                }
+
+            }
+            $('#StatusDropList').html(htmlstatusbox);
+        })
+        //-------------------------------STATUS-END-------------------------//
+
+
+        //-------------------------------WORKTYPE-------------------------//
+         var htmlworktypebox = "";
+        $.get('/ListEmployee/GetAllWorkTypes',function(data2,textStatus2,jqXHR){
+            for(var i = 0; i<data2.data.length;i++){
+
+                if(data.data.workType.id == data2.data[i].id){
+                    htmlworktypebox+=`<option selected="selected" value="${data.data.workType.id}">${data.data.workType.name}</option>`;
+                }else{
+                    htmlworktypebox+=`<option value="${data2.data[i].id}">${data2.data[i].name}</option>`;
+                }
+
+            }
+            $('#WorkTypeDropList').html(htmlworktypebox);
+        })
+        //-------------------------------WORKTYPE-END-------------------------//
+    }
+
+    KariyerBilgileri=()=>{
+        var employeeId = @ViewBag.Id;
+        $.get('/Home/GetEmployeeCareer',{employeeId:employeeId},function(data,textStatus,jqXHR){
+
+        var html = "";
+        var htmlbox="";
+
+        html = `
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="col-xl-12 col-lg-12 col-md-12">
+                                    <div class="card custom-card">
+                                        <div class="card-body">
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade show active" id="orders" role="tabpanel">
+                                                    <div class="d-flex mb-4">
+
+                                                         <h3 class=text-dark-bold">Kariyer</h3>
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table border text-md-nowrap text-nowrap">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Başlangıç</th>
+                                                                    <th>Bitiş</th>
+                                                                    <th>Çalışma Şekli</th>
+                                                                    <th>Şirket</th>
+                                                                    <th>Şube</th>
+                                                                    <th>Departman</th>
+                                                                    <th>Unvan</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="careerContainerRow">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+            </div>
+        </div>`;
+        $('#containerKariyer').html(html);
+        for(var i = 0; i< data.data.length;i++){
+            var startDate = data.data[i].career.startDate;
+            var endDate = data.data[i].career.endDate;
+            var workType = data.data[i].workType.name;
+            var company = data.data[i].company.name;
+            var branch = data.data[i].branch.name;
+            var department = data.data[i].department.name;
+            var status = data.data[i].status.name;
+            htmlbox+=`
+                                                                <tr class="border-bottom">
+                                                                    <th scope="row">${startDate}</th>
+                                                                    <td>${endDate}</td>
+                                                                    <td>${workType}</td>
+                                                                    <td>${company}</td>
+                                                                    <td>${branch}</td>
+                                                                    <td>${department}</td>
+                                                                    <td>${status}</td>
+                                                                </tr>`;
+        }
+
+
+        $('#careerContainerRow').html(htmlbox);
+        })
+    }
+
+
+    KisiselBilgiler=(data)=>{
+
+
+
+        var nationalIdentityNumber = data.data.identityNumber;
+        var birthDate = data.data.birthDate;
+        var disabilitySituation = data.data.disabilitySituation;
+        var nationality = data.data.nationality;
+        var bloodGroup = data.data.bloodGroup;
+        var militaryStatus = data.data.militaryStatus;
+        var educationalStatus = data.data.educationalStatus;
+        var completedEducation = data.data.completedEducation;
+
+
+        var html = "";
+        html=`
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class=text-dark-bold">Kişisel Bilgiler</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p>Kimlik Numarası</p>
+                                            <input id="identityNumberValue" value="${nationalIdentityNumber}" type="text" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Doğum Tarihi</p>
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="BirthdayValue" class="form-control" value="${birthDate.slice(0,10)}" aria-label="${birthDate.slice(0,10)}" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon1">yyyy/aa/gg veya yyyy-aa-gg</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:50px" class="row">
+                                        <div class="col-md-6">
+                                            <p>Medeni Hal</p>
+                                             <div class="form-group">
+                                                <select class="form-control select-lg select2" name="maritialsituationdrop" id="MaritialSituationDropList">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Cinsiyet</p>
+                                            <div class="form-group">
+                                                <select class="form-control select-lg select2" name="genderdrop" id="GenderDropList">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:50px" class="row">
+                                        <div class="col-md-6">
+                                            <p>Engel durumu</p>
+                                            <input id="engelDurumuValue" value="${disabilitySituation}" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Uyruğu</p>
+                                            <input id="nationalityValue" value="${nationality}" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:50px" class="row">
+                                        <div class="col-md-6">
+                                            <p>Kan Grubu</p>
+                                            <input id="bloodGorupValue" value="${bloodGroup}" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Askerlik Durumu</p>
+                                            <input id="militaryStatusValue" value="${militaryStatus}" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:50px" class="row">
+                                        <div class="col-md-6">
+                                            <p>Eğitim Durumu</p>
+                                            <input id="educationalStatusValue" value="${educationalStatus}" type="text" class="form-control"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Son Tamamlanan Eğitim Kurumu</p>
+                                            <input id="completedEducationValue" value="${completedEducation}" type="text" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class = col-md-11>
+                                            </div>
+                                            <div class = col-md-1>
+                                            <button type="button" onclick="kisiselBilgilerGuncelle()" class="btn ripple btn-rounded btn-primary">Güncelle</button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+             
+            </div>
+        </div>`;
+
+        $('#containerKisiselBilgiler').html(html);
+
+
+        var htmlmaritialbox="";
+        if(data.data.maritialSituation == 1){
+            htmlmaritialbox=`<option value="0">Bekar</option>
+                <option value="1" selected="selected" >Evli</option>`;
+        }else{
+            htmlmaritialbox=`<option value="0" selected="selected" >Bekar</option>
+                <option value="1">Evli</option>`;
+        }
+
+        $('#MaritialSituationDropList').html(htmlmaritialbox);
+
+
+
+        var htmlbox = "";
+        if(data.data.gender == 1){
+            htmlbox=`<option value="0">Kadın</option>
+                <option value="1" selected="selected" >Erkek</option>`;
+        }else{
+            htmlbox=`<option value="0" selected="selected" >Kadın</option>
+                <option value="1">Erkek</option>`;
+        }
+
+        $('#GenderDropList').html(htmlbox);
+
+
+    }
+
+    DigerBilgiler=(data)=>{
+        var html = "";
+
+        html=`
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class="text-dark-bold">Diğer Bilgiler</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="custom-card">
+                                        <div class="card-header">
+                                            <p>Adres bilgileri</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p>Adres Bilgileri</p>
+                                                    <input id="adressInput" value="${data.data.address}" />
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>Telefon</p>
+                                                    <input id="phoneValue" value="${data.data.phone}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                            <div class = col-md-11>
+                                            </div>
+                                            <div class = col-md-1>
+                                            <button type="button" onclick="UpdateAddressInformation()" class="btn ripple btn-rounded btn-primary">Güncelle</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                </div>
+            </div>
+        </div>`;
+        $('#containerDigerBilgiler').html(html);
+    }
+
+
+    IzinBilgiler=()=>{
+        employeeId = @ViewBag.Id
+        $.get('/ListEmployee/GetEmployeDayOffRequest',{employeeId:employeeId, requestType:1},function(data,textStatus,jqXHR){
+
+        var html = "";
+         html=`
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class="text-dark-bold">İzin</h3>
+                                </div>
+                                <div class="card-body">
+                                <div class="row">
+                                            <div class = col-md-11>
+                                            </div>
+                                            <div class = col-md-1>
+                                            <button type="button" onclick="ShowDayOffModal()" class="btn ripple btn-rounded btn-primary">İzin Oluştur</button>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card custom-card">
+                                    <div class="card-body">
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active" id="orders" role="tabpanel">
+                                                <div class="table-responsive">
+                                                    <table class="table border text-md-nowrap text-nowrap">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Başlangıç</th>
+                                                                <th>Bitiş</th>
+                                                                <th>Süre</th>
+                                                                <th>İzin Türü</th>
+                                                                <th>Açıklama</th>
+                                                                <th>Oluşturma Tarihi</th>
+                                                                <th>Durum</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="containerizinDoldurmaYeri" >
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+        $("#containerizin").html(html);
+
+        var htmlbox = "";
+        var durum = "";
+        for(var i = 0; i<data.data.length;i++){
+            if(data.data[i].isAccepted == 0){
+                durum = "Beklemede";
+            }else if(data.data[i].isAccepted == 1){
+                durum = "Onaylandı";
+            }
+            else{
+                durum = "Reddedildi"
+            }
+            htmlbox+=` <tr class="border-bottom">
+                                                                <th scope="row">${data.data[i].startDate}</th>
+                                                                <td>${data.data[i].endDate}</td>
+                                                                <td>${data.data[i].totalDuration}</td>
+                                                                <td>${data.data[i].permissionTypeId}</td>
+                                                                <td>${data.data[i].description}</td>
+                                                                <td>${data.data[i].createDate}</td>
+                                                                <td>${durum}</td>
+                                                            </tr>`;
+        }
+        $('#containerizinDoldurmaYeri').html(htmlbox);
+
+       })
+
+    }
+
+    MesaiBilgiler=()=>{
+        var employeeId = @ViewBag.Id;
+         $.get('/ListEmployee/GetEmployeDayOffRequest',{employeeId:employeeId, requestType:2},function(data,textStatus,jqXHR){
+        var html = "";
+
+        html=`
+            <div class="container-fluid">
+                <div class="inner-body">
+                    <div class="row row-sm">
+                        <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="card custom-card">
+                                <div class="card-header">
+                                    <h3 class="text-dark-bold">Mesai</h3>
+                                </div>
+                                <div class="card-body">
+                                <div class="row">
+                                            <div class = col-md-10>
+                                            </div>
+                                            <div class = col-md-2>
+                                            <button onclick="btnmodalshow()" type="button" class="btn ripple btn-rounded btn-primary">Mesai Oluştur</button>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="orders" role="tabpanel">
+                                            <div class="table-responsive">
+                                                <table class="table border text-md-nowrap text-nowrap">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Başlangıç</th>
+                                                            <th>Süre(Saat)</th>
+                                                            <th>Açıklama</th>
+                                                            <th>Durum</th>
+                                                            <th>Oluşturma Tarihi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="mesaicontainer">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        $('#containermesai').html(html);
+        var htmlbox = "";
+        var durum = "";
+        var date = "";
+        var cdate = "";
+        for(var i = 0;i<data.data.length;i++){
+            if(data.data[i].isAccepted == 0){
+                durum = "Beklemede";
+            }else if(data.data[i].isAccepted == 1){
+                durum = "Onaylandı";
+            }
+            else{
+                durum = "Reddedildi"
+            }
+            date = data.data[i].startDate.slice(0,10) + " " + data.data[i].startTime.slice(11,16);
+            cdate = data.data[i].createDate.slice(0,10) + " " + data.data[i].createDate.slice(11,16);
+            htmlbox+=` <tr class="border-bottom">
+                        <th scope="row">${date}</th>
+                        <td>${data.data[i].totalDuration} saat</td>
+                        <td>${data.data[i].description}</td>
+                        <td>${durum}</td>
+                        <td>${cdate}</td>
+                       </tr>`;
+        }
+        $('#mesaicontainer').html(htmlbox);
+
+        })
+    }
+
+    (function() {
+      $(function() {
+        var toggle;
+        return toggle = new Toggle('.toggle');
+      });
+
+      this.Toggle = (function() {
+        Toggle.prototype.el = null;
+
+        Toggle.prototype.tabs = null;
+
+        Toggle.prototype.panels = null;
+
+        function Toggle(toggleClass) {
+          this.el = $(toggleClass);
+          this.tabs = this.el.find(".tab");
+          this.panels = this.el.find(".panel");
+          this.bind();
+        }
+
+        Toggle.prototype.show = function(index) {
+          var activePanel, activeTab;
+          this.tabs.removeClass('active');
+          activeTab = this.tabs.get(index);
+          $(activeTab).addClass('active');
+          this.panels.hide();
+          activePanel = this.panels.get(index);
+          return $(activePanel).show();
+        };
+
+        Toggle.prototype.bind = function() {
+          var _this = this;
+          return this.tabs.unbind('click').bind('click', function(e) {
+            return _this.show($(e.currentTarget).index());
+          });
+        };
+
+        return Toggle;
+
+      })();
+
+    }).call(this);
+
+
+
+    btnmodalshow=()=>{
+        $('#modalShiftbtn').css("display","block").modal("show");
+    }
+
+
+
+
+
+           kisiselBilgilerGuncelle=()=>{
+               
+                var d = new Date();
+                var todayDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" +d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
+
+               var maritialInput = $('#MaritialSituationDropList option:selected').val();
+               var maritialSituation = false;
+               if(maritialInput == 1){
+                   maritialSituation = true;
+               }else{
+                   maritialSituation = false;
+               }
+
+               var genderInput = $('#GenderDropList option:selected').val();
+               var genderSituation = false;
+               if(genderInput == 1){
+                   genderSituation = true;
+               }else{
+                   genderSituation=false;
+               }
+
+               var d = new Date();
+                $.ajax({
+           type: "POST",
+           url: "/ListEmployee/UpdateUser",
+           datatype: "json",
+           traditional: true,
+           data: {
+            'id':@ViewBag.UserId,
+            'address':$('#adressInput').val(),
+            'birthDate':$('#BirthdayValue').val(),
+            'bloodGroup':$('#bloodGorupValue').val(),
+            'completedEducation':$('#completedEducationValue').val(),
+            'createDate':todayDate,
+            'disabilitySituation':$('#engelDurumuValue').val(),
+            'educationalStatus':$('#educationalStatusValue').val(),
+            'email':$('#emailValue').val(),
+            'gender':genderSituation,
+            'identityNumber':$('#identityNumberValue').val(),
+            'maritialSituation':maritialSituation,
+            'militaryStatus':$('#militaryStatusValue').val(),
+            'name':$('#nameValue').val(),
+            'nationality':$('#nationalityValue').val(),
+            'Phone':$('#phoneValue').val(),
+            'profilePhoto':"bfghdfghdfghdfgh",
+            'surname':$('#surnameValue').val()
+           },
+           success: function (ex) {
+             alert("Bilgiler başarıyla güncellendi");
+             location.reload(true);
+           }})
+           }
+
+
+           GeneralInformationUpdate=()=>{
+           $.ajax({
+           type: "POST",
+           url: "/ListEmployee/UpdateGeneralInformation",
+           datatype: "json",
+           traditional: true,
+           data: {
+           'userId':@ViewBag.UserId,
+           'employeeId':@ViewBag.Id,
+           'name':$('#nameValue').val(),
+           'surname':$('#surnameValue').val(),
+           'email':$('#emailValue').val(),
+           'startDate':$('#startDate').val(),
+           'departmentId':$('#DepartmentDropList option:selected').val(),
+           'statusId':$('#StatusDropList option:selected').val(),
+           'username':$('#username').val(),
+           'workTypeId':$('#WorkTypeDropList option:selected').val(),
+           },
+           success: function (ex) {
+             alert("Bilgiler başarıyla güncellendi");
+             location.reload(true);
+           }})
+           }
+
+           UpdateAddressInformation=()=>{
+                $.ajax({
+           type: "POST",
+           url: "/ListEmployee/UpdateAdressInformation",
+           datatype: "json",
+           traditional: true,
+           data: {
+           'Id':@ViewBag.UserId,
+           'address':$('#adressInput').val(),
+           'phone':$('#phoneValue').val()
+           },
+           success: function (ex) {
+             alert("Bilgiler başarıyla güncellendi");
+             location.reload(true);
+           }})
+           }
+
+
+
+        function CreateShiftEmployee(){
+
+        var token = document.cookie;
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        var parseToken = JSON.parse(jsonPayload);
+
+        var d = new Date();
+        var today = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
+
+        $.ajax({
+            type:'POST',
+            url:'/Shift/CreateShiftRequest',
+            data:{
+            'startDate':$('#EmployeeShiftStartDate').val(),
+            'endDate':$('#EmployeeShiftEndDate').val(),
+            'startTime':$('#EmployeeShiftStartTime').val(),
+            'endTime':$('#EmployeeShiftEndTime').val(),
+            'totalDuration':$('#EmployeeShiftDuration').val(),
+            'description':$('#EmployeeShiftDescription').val(),
+            'isAccepted':1,
+            'createDate':today,
+            'employeeID':@ViewBag.Id,
+            'requestTypeId':2,
+            'permissionTypeId':0,
+            "replaceEmployeeId":0
+            },
+            success:function(data){
+                alert("Mesai Başarıyla EKlendi!",data);
+                location.reload(true);
+            },
+            error:function(ex){
+               alert("error");
+            }
+        });
+    }
+
+
+
+
+     $('#EmployeeShiftEndTime').change(function(){
+        var startDate = $('#EmployeeShiftStartDate').val().slice(0,10);
+        var endDate = $('#EmployeeShiftEndDate').val().slice(0,10);
+        $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+        var days = data.data.length;
+            $('#EmployeeShiftDuration').val(days);
+         })
+    })
+
+    $('#EmployeeShiftEndDate').change(function(){
+        var startDate = $('#EmployeeShiftStartDate').val().slice(0,10);
+        var endDate = $('#EmployeeShiftEndDate').val().slice(0,10);
+        $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+        var days = data.data.length;
+            $('#EmployeeShiftDuration').val(days);
+         })
+    })
+
+
+    CreateRequestEmployee=()=>{
+         $.get('/ListEmployee/GetEmployeeDetail',{employeeId:employeeId},function(data,textStatus,jqXHR){
+
+
+
+        var d = new Date();
+        var today = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
+
+        $.ajax({
+            type:'POST',
+            url:'/DayOff/CreateRequest',
+            data:{
+            'startDate':$('#AdminPanelDayOffStartDate').val(),
+            'endDate':$('#AdminPanelDayOffEndDate').val(),
+            'startTime':$('#AdminPanelDayOffStartTime').val(),
+            'endTime':$('#AdminPanelDayOffEndTime').val(),
+            'totalDuration':$('#AdminPanelDayOfftotalDayValue').val(),
+            'description':$('#AdminPanelDayOffrequestDecription').val(),
+            'isAccepted':1,
+            'createDate':today,
+            'employeeID':data.data.employee.id,
+            'requestTypeId':1,
+            'permissionTypeId':$('#requestEmployeeDayDropList').val(),
+            "replaceEmployeeId":$('#replaceemployeecontainerAdminPanel').val()
+            },
+            success:function(data){
+                alert("İzin Başarıyla EKlendi!");
+                location.reload(true);
+            },
+            error:function(ex){
+               alert("error");
+            }
+        });
+
+        })
+    }
+
+     $('#AdminPanelDayOffEndDate').change(function(){
+         var startDate = $('#AdminPanelDayOffStartDate').val().slice(0,10);
+         var endDate = $('#AdminPanelDayOffEndDate').val().slice(0,10);
+         $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+            var days = data.data.length;
+
+
+            $('#AdminPanelDayOfftotalDayValue').val(days);
+         })
+     })
+
+      $('#AdminPanelDayOffEndTime').change(function(){
+         var startDate = $('#AdminPanelDayOffStartDate').val().slice(0,10);
+         var endDate = $('#AdminPanelDayOffEndDate').val().slice(0,10);
+         $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+            var days = data.data.length;
+
+
+            $('#AdminPanelDayOfftotalDayValue').val(days);
+         })
+     })
+
+
+
+    ShowDayOffModal=()=>{
+        $('#modalRequestEmployee').css("display","block").modal("show");
+    }
+
+
+
+     GetEmployeePermissionTypes=()=>{
+           $.get('/DayOff/GetAllPermissionDays',function(data,textStatus,jqXHR){
+    var html = "";
+    html = `<option value="">Large Select</option>`;
+    for(var i = 0; i<data.data.length;i++){
+
+    html+=`
+                        <option value="${data.data[i].id}">${data.data[i].name}</option>
+                        `;
+    }
+    $('#requestEmployeeDayDropList').html(html);
+
+          })
+     }
+
+
+     GetEmployeeForReplaceAdminPanel=(departmentID,branchID,statusID)=>{
+         html = "";
+         html = `<option value="">Large Select</option>
+         `;
+         $.get('/DayOff/GetEmployeeForReplace',{departmentId:departmentID,branchId:branchID,statusId:statusID},function(data,textStatus,jqXHR){
+             for(var i = 0; i<data.data.length;i++){
+                 html +=`
+                        <option value="${data.data[i].employee.id}">${data.data[i].user.name} ${data.data[i].user.surname}</option>`;
+             }
+             $('#replaceemployeecontainerAdminPanel').html(html);
+         })
+
+     }
+
+</script>
+
+<style>
+    .toggle {
+        font-family: arial, sans-serif;
+    }
+
+        .toggle .tabs {
+            border-bottom: 1px solid grey;
+            width: 100%;
+            overflow: hidden;
+            height: 36px;
+            line-height: 36px;
+        }
+
+            .toggle .tabs .tab {
+                float: left;
+                /*    background: white;*/
+                color: #777777;
+                height: 31px;
+                margin: 2px 8px 0;
+                padding: 0 8px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+                .toggle .tabs .tab.active {
+                    color: #6259ca;
+                    border-bottom: 3px solid #6259ca;
+                }
+
+        .toggle .panels .panel {
+            padding: 20px 10px;
+            display: none;
+        }
+
+            .toggle .panels .panel:first-child {
+                display: block;
+            }
+
+</style>

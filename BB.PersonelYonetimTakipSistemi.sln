@@ -1,0 +1,95 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Data", "1-Data", "{3B82C203-51CA-40B9-AC02-2E31C45942A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Exception", "2-Exception", "{1D9BAEDC-E8C3-4157-8952-867A9F593343}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Dal", "3-Dal", "{1BDEE952-26EE-4AB0-A2CE-5ECEA1F82CD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Model", "4-Model", "{4F776697-7A60-4642-9595-D7EDDF1766C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Helper", "5-Helper", "{F996A2B5-0E01-4400-A4B3-9FCDB194EACC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6-Service", "6-Service", "{82392BB6-CE5B-4795-BE52-17ABA472BF87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7-Api", "7-Api", "{A21CE25D-6596-4DDC-9B62-A4AD349426CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8-Test", "8-Test", "{17E9F4CA-FC66-43A5-8FF1-64A8F5CB451F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9-UI", "9-UI", "{3E22C04E-011A-435C-9326-F40313E301DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Data", "BB.PersonelYonetimTakipSistemi.Data\BB.PersonelYonetimTakipSistemi.Data.csproj", "{3D7E04AA-D133-4E79-AFC8-1B0A630F1341}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Dal", "BB.PersonelYonetimTakipSistemi.Dal\BB.PersonelYonetimTakipSistemi.Dal.csproj", "{E7443ACA-8AA1-4B9B-816E-6679BCB30F06}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Model", "BB.PersonelYonetimTakipSistemi.Model\BB.PersonelYonetimTakipSistemi.Model.csproj", "{0DC946C2-C398-46B4-B01E-70678991CDA2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Helper", "BB.PersonelYonetimTakipSistemi.Helper\BB.PersonelYonetimTakipSistemi.Helper.csproj", "{3069E463-253A-4883-9649-A0BA9EBCBA53}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Service", "BB.PersonelYonetimTakipSistemi.Service\BB.PersonelYonetimTakipSistemi.Service.csproj", "{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.Api", "BB.PersonelYonetimTakipSistemi.Api\BB.PersonelYonetimTakipSistemi.Api.csproj", "{431C8547-57F9-4507-B15B-5E96E08DB352}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BB.PersonelYonetimTakipSistemi.UI", "BB.PersonelYonetimTakipSistemi.UI\BB.PersonelYonetimTakipSistemi.UI.csproj", "{F20533F6-F067-41CF-913D-3CF453DA2A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BB.PersonelYonetimTakipSistemi.Exception", "BB.PersonelYonetimTakipSistemi.Exception\BB.PersonelYonetimTakipSistemi.Exception.csproj", "{36211606-5BEC-49F4-B8D5-89C862A17053}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D7E04AA-D133-4E79-AFC8-1B0A630F1341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D7E04AA-D133-4E79-AFC8-1B0A630F1341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D7E04AA-D133-4E79-AFC8-1B0A630F1341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D7E04AA-D133-4E79-AFC8-1B0A630F1341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7443ACA-8AA1-4B9B-816E-6679BCB30F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7443ACA-8AA1-4B9B-816E-6679BCB30F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7443ACA-8AA1-4B9B-816E-6679BCB30F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7443ACA-8AA1-4B9B-816E-6679BCB30F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DC946C2-C398-46B4-B01E-70678991CDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DC946C2-C398-46B4-B01E-70678991CDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DC946C2-C398-46B4-B01E-70678991CDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DC946C2-C398-46B4-B01E-70678991CDA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3069E463-253A-4883-9649-A0BA9EBCBA53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3069E463-253A-4883-9649-A0BA9EBCBA53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3069E463-253A-4883-9649-A0BA9EBCBA53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3069E463-253A-4883-9649-A0BA9EBCBA53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{431C8547-57F9-4507-B15B-5E96E08DB352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{431C8547-57F9-4507-B15B-5E96E08DB352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{431C8547-57F9-4507-B15B-5E96E08DB352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{431C8547-57F9-4507-B15B-5E96E08DB352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F20533F6-F067-41CF-913D-3CF453DA2A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F20533F6-F067-41CF-913D-3CF453DA2A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F20533F6-F067-41CF-913D-3CF453DA2A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F20533F6-F067-41CF-913D-3CF453DA2A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36211606-5BEC-49F4-B8D5-89C862A17053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36211606-5BEC-49F4-B8D5-89C862A17053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36211606-5BEC-49F4-B8D5-89C862A17053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36211606-5BEC-49F4-B8D5-89C862A17053}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3D7E04AA-D133-4E79-AFC8-1B0A630F1341} = {3B82C203-51CA-40B9-AC02-2E31C45942A7}
+		{E7443ACA-8AA1-4B9B-816E-6679BCB30F06} = {1BDEE952-26EE-4AB0-A2CE-5ECEA1F82CD7}
+		{0DC946C2-C398-46B4-B01E-70678991CDA2} = {4F776697-7A60-4642-9595-D7EDDF1766C5}
+		{3069E463-253A-4883-9649-A0BA9EBCBA53} = {F996A2B5-0E01-4400-A4B3-9FCDB194EACC}
+		{9CF6D6D0-F85C-4CB0-A3CB-90E00EBBD6C0} = {82392BB6-CE5B-4795-BE52-17ABA472BF87}
+		{431C8547-57F9-4507-B15B-5E96E08DB352} = {A21CE25D-6596-4DDC-9B62-A4AD349426CC}
+		{F20533F6-F067-41CF-913D-3CF453DA2A59} = {3E22C04E-011A-435C-9326-F40313E301DF}
+		{36211606-5BEC-49F4-B8D5-89C862A17053} = {1D9BAEDC-E8C3-4157-8952-867A9F593343}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C47C3B1E-4EAE-4207-9EF8-4BBA13345A99}
+	EndGlobalSection
+EndGlobal

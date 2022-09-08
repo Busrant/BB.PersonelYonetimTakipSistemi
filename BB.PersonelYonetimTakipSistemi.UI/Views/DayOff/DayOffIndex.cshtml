@@ -1,0 +1,248 @@
+﻿@{
+    ViewData["Title"] = "DayOffIndex";
+}
+
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">İzin Günü</h6>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select-lg select2" name="RequesSDFASDFtType" id="requestDayDropList">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Toplam Gün</h6>
+                </div>
+                <div class="form-group"> 
+                    <input type="text" disabled class="form-control" id="totalDayValue" placeholder="Toplam Gün" name="Toplam Gün" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <div>
+                        <h6 class="main-content-label">Başlangıç Tarihi</h6>
+                    </div>
+                    <div class="datepicker">
+                        <input type="date" id="StartDate" value="2022-09-15" name="startDate">
+                        <span></span>
+                        <input type="time" id="StartTime" value="08:00" name="startTime">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <div>
+                        <h6 class="main-content-label">Bitiş Tarihi</h6>
+                    </div>
+                    <div class="datepicker">
+                        <input type="date" id="EndDate" value="2022-09-15" name="endDate">
+                        <span></span>
+                        <input type="time" id="EndTime" value="08:00" name="endTime">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Açıklama</h6>
+                </div>
+                <textarea id="requestDecription" style="resize:none;overflow:auto;" rows="5" required placeholder="Talep Açıklaması" class="form-control input-md" name="description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Yerine Bakacak Kişi</h6>
+                </div>
+                <div class="form-group">
+                    <select class="form-control select-lg select2" name="replaceEmployeeID" id="replaceemployeecontainer">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card-body">
+                <div>
+                    <h6 class="main-content-label">Dönüş Tarihi</h6>
+                </div>
+                <div class="datepicker">
+                    <input type="date" id="date" value="2022-09-15">
+                    <span></span>
+                    <input type="time" id="time" value="08:00">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn ripple btn-rounded btn-secondary" id="closeModalButton" data-dismiss="modal">İptal</button>
+        <button onclick="CreateRequest()" class="btn ripple btn-rounded btn-primary">Talep Oluştur</button>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+     $(document).ready(function(){
+         GetPermissionTypes();
+        var token = document.cookie;
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        var parseToken = JSON.parse(jsonPayload);
+       var id = parseToken.id;
+       var name = parseToken.name;
+       var surname = parseToken.surname;
+       var departmentID = parseToken.departmentId;
+       var workTypeID = parseToken.workTypeId;
+       var branchID = parseToken.branchId;
+       var statusID = parseToken.statusId;
+
+       var number = 1;
+
+         GetEmployeeForReplace(departmentID,branchID,statusID);
+     });
+
+     GetPermissionTypes=()=>{
+           $.get('/DayOff/GetAllPermissionDays',function(data,textStatus,jqXHR){
+    var html = "";
+    html = `<option value="">Large Select</option>`;
+    for(var i = 0; i<data.data.length;i++){
+
+    html+=`
+                        <option value="${data.data[i].id}">${data.data[i].name}</option>
+                        `;
+    }
+    $('#requestDayDropList').html(html);
+
+          })
+     }
+
+     GetEmployeeForReplace=(departmentID,branchID)=>{
+         html = "";
+         html = `<option value="">Large Select</option>
+         `;
+         $.get('/DayOff/GetEmployeeForReplace',{departmentId:departmentID,branchId:branchID},function(data,textStatus,jqXHR){
+             for(var i = 0; i<data.data.length;i++){
+                 html +=`
+                        <option value="${data.data[i].employee.id}">${data.data[i].user.name} ${data.data[i].user.surname}</option>`;
+             }
+             $('#replaceemployeecontainer').html(html);
+         })
+
+     }
+
+     $('#EndTime').change(function(){
+         var startDate = $('#StartDate').val().slice(0,10);
+         var endDate = $('#EndDate').val().slice(0,10);
+         var startTime = new Date("1970-1-1 " + $('#StartTime').val());
+         var endTime = new Date("1970-1-1 " + $('#EndTime').val());
+         var time = (endTime - startTime)/ 1000 / 60 / 60;
+         time = (time/8.5);
+         $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+            var days = data.data.length;
+
+             var totalDay = days + time;
+             totalDay = parseFloat(totalDay);
+             totalDay = totalDay.toFixed(2);
+            $('#totalDayValue').val(totalDay);
+         })
+     })
+
+      $('#EndDate').change(function(){
+         var startDate = $('#StartDate').val().slice(0,10);
+         var endDate = $('#EndDate').val().slice(0,10);
+         var startTime = new Date("1970-1-1 " + $('#StartTime').val());
+         var endTime = new Date("1970-1-1 " + $('#EndTime').val());
+         var time = (endTime - startTime)/ 1000 / 60 / 60;
+         time = (time/8.5);
+         $.get('/DayOff/GetAllDayOffs',{startdate:startDate,enddate:endDate},function(data,textStatus,jqXHR){
+            var days = data.data.length;
+
+            var totalDay = days + time;
+             totalDay = parseFloat(totalDay);
+             totalDay = totalDay.toFixed(2);
+            $('#totalDayValue').val(totalDay);
+         })
+     })
+
+
+
+     function CreateRequest(){
+         var token = document.cookie;
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        var parseToken = JSON.parse(jsonPayload);
+        var d = new Date();
+        var today = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
+         $.ajax({
+           type: "POST",
+           url: "/DayOff/CreateRequest",
+           datatype: "json",
+           traditional: true,
+           data: {
+            'startDate':$('#StartDate').val(),
+            'endDate':$('#EndDate').val(),
+            'startTime':$('#StartTime').val(),
+            'endTime':$('#EndTime').val(),
+            'totalDuration':$('#totalDayValue').val(),
+            'description':$('#requestDecription').val(),
+            'isAccepted':0,
+            'createDate':today,
+            'employeeID':parseToken.id,
+            'requestTypeId':1,
+            'replaceEmployeeId':$('#replaceemployeecontainer option:selected').val(),
+            'permissionTypeId':$('#requestDayDropList option:selected').val()
+           },
+     
+           success: function (ex) {
+               swal("Başarıyla Kaydedildi!","Talep Başarıyla Oluşturuldu!","success").then(function(){
+                     window.location.reload();
+                });
+           },
+     
+           error: function (ex) {
+            swal("Hata!","Talep Oluşturulamadı!","error").then(function(){
+                     window.location.reload();
+                });
+           }
+     
+       });
+     }
+</script>
+
+<style>
+    .form-control {
+        background-color: #F5F5F5;
+    }
+
+    .form-group {
+        background-color: #F5F5F5;
+    }
+
+    .select2-selection {
+        background-color: #F5F5F5;
+    }
+</style>

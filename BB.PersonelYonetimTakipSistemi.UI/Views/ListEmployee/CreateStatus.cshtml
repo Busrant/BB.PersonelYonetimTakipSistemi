@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "CreateStatus";
+}
+
+<div class="main-content side-content">
+    <div class="container-fluid">
+        <div class="inner-body">
+            <div class="page-header">
+            </div>
+            <div class="row row-sm">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div>
+                                <h4>Yeni Ünvan Ekle</h4>
+                            </div>
+                            <div class="card-body" id="StatusInfo">
+                                <div class="row row-sm">
+                                    <div class="col-lg-5">
+                                        <h4>Ünvan Adı</h4>
+                                        <input class="form-control" id="statusNameInput" placeholder="Ünvan Adı" required type="text">
+                                    </div>
+                                    <div class="col-lg-2">
+                                    </div>
+
+                                </div>
+                             <button id="saveStatus" class="btn ripple btn-primary mt-3">Kaydet</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../../assets/plugins/jquery/jquery.min.js"></script>
+
+<script>
+$("#saveStatus").click(function() {
+    var statusName = $('#statusNameInput').val();
+        $.post('/ListEmployee/AddStatus',
+        {'name':statusName});
+    swal("Başarıyla Kaydedildi!","Ünvan Başarıyla eklendi!","success").then(function(){
+        window.location.href="/ListEmployee/List";
+    });    
+    });
+</script>
+

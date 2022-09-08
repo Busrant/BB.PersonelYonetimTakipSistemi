@@ -1,0 +1,385 @@
+﻿@{
+    ViewData["Title"] = "CreateEmployee";
+}
+
+<div class="main-content side-content">
+    <div class="container-fluid">
+        <div class="inner-body">
+            <div class="page-header">
+            </div>
+            <div class="row row-sm">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card custom-card">
+                        <div class="card-header">
+                            <div>
+                                <h4>Yeni Çalışan Ekle</h4>
+                            </div>
+                        </div>
+                        <div class="card-body" id="UserInfo">
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Ad</h4>
+                                    <input class="form-control" id="nameInput" placeholder="Ad" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Soyad</h4>
+                                    <input class="form-control" id="surnameInput" placeholder="Soyad" required type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Kimlik Numarası</h4>
+                                    <input class="form-control" id="identityNumberInput" placeholder="Kimlik Numarası" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Adres</h4>
+                                    <input class="form-control" id="adressInput" placeholder="Adres" required type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Telefon Numrası</h4>
+                                    <input class="form-control" id="phoneInput" placeholder="5554443322" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Cinsiyet</h4>
+                                    <select id="genderInput" class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        <option selected>Cinsiyet</option>
+                                        <option value="true">Erkek</option>
+                                        <option value="false">Kadın</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Kişisel Email</h4>
+                                    <input class="form-control" id="emailInput" placeholder="Email" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Uyruk</h4>
+                                    <input class="form-control" id="nationalityInput" placeholder="Uyruk" required type="text">
+                                </div>
+
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Doğum Günü</h4>
+                                    <div class="datepicker">
+                                        <input type="date" id="birthDateInput" required value="2002-10-15">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Engel Durumu</h4>
+                                    <input class="form-control" id="disabilityInput" placeholder="Engel Durumu" type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Kan Grubu</h4>
+                                    <input class="form-control" id="bloodGroupInput" placeholder="Kan Grubu" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Askerlik Durumu</h4>
+                                    <input class="form-control" id="militaryStatus" placeholder="Askerlik Durumu" type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Eğitim Durumu</h4>
+                                    <input class="form-control" id="educationalStatusInput" placeholder="Lisans/Yüksek Lisans" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>En Son Mezun Olduğu Kurum</h4>
+                                    <input class="form-control" id="CompletedEducationInput" placeholder="Erciyes Üniversitesi" required type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Medeni Hali</h4>
+                                    <select id="maritialStatusInput" class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        <option selected>Medeni Hali</option>
+                                        <option value="true">Evli</option>
+                                        <option value="false">Bekar</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <button id="next1" class="btn ripple btn-primary mt-3">İleri</button>
+                        </div>
+                        <div class="card-body" id="EmployeeInfo">
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Dahili Numara</h4>
+                                    <input class="form-control" id="companyPhoneInput" placeholder="Dahili Numara" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Kullanıcı Adı</h4>
+                                    <input class="form-control" id="usernameInput" placeholder="Kullanıcı Adı" required type="text">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Şifre</h4>
+                                    <input class="form-control" id="passwordInput" placeholder="Şifre" required type="text">
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Şirkete Başlama Tarihi</h4>
+                                     <input type="date" id="startdateToCompanyInput" required value="2022-04-21">
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Şirket Emaili</h4>
+                                    <input class="form-control" id="companyEmailInput" placeholder="ademkocdogan@bb.com.tr" required type="text">
+                                </div>
+                            </div>
+                            <button id="next2" class="btn ripple btn-primary mt-3">İleri</button>
+                        </div>
+                        <div class="card-body" id="CareerInfo">
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Departman</h4>
+                                    <select id="departmentInput" required class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Statü</h4>
+                                    <select id="statusInput" required class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <hr style="color:white" />
+                            <div class="row row-sm">
+                                <div class="col-lg-5">
+                                    <h4>Şube</h4>
+                                    <select id="branchInput" required class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>Çalışma Tipi</h4>
+                                    <select id="workTypeInput" required class="form-select form-select-lg mb-3" style="background-color:#eaedf7" aria-label=".form-select-lg example">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="save" class="btn ripple btn-primary mt-3">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="../../assets/plugins/jquery/jquery.min.js"></script>
+
+<script>
+    var token = document.cookie;
+         var base64Url = token.split('.')[1];
+         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+         var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+         }).join(''));
+         var parseToken = JSON.parse(jsonPayload);
+
+         var companyId = parseToken.companyId;
+
+    $.get('/ListEmployee/GetAllDepartmentsInCompany',{companyId:companyId},function(data,textStatus,jqXHR){
+        var html = "";
+        html =`<option selected>Departman Seç</option>`;
+
+        for(var i = 0;i<data.data.length;i++){
+            html +=`<option value="${data.data[i].id}">${data.data[i].name}</option>`;
+        }
+        $('#departmentInput').html(html);
+    });
+
+     $.get('/ListEmployee/GetAllStatuses',function(data,textStatus,jqXHR){
+        var html = "";
+        html =`<option selected>Statü Seç</option>`;
+
+        for(var i = 0;i<data.data.length;i++){
+            html +=`<option value="${data.data[i].id}">${data.data[i].name}</option>`;
+        }
+        $('#statusInput').html(html);
+    });
+
+
+    $.get('/ListEmployee/GetAllCompanyBranches',{companyId:companyId},function(data,textStatus,jqXHR){
+        var html = "";
+        html =`<option selected>Şube Seç</option>`;
+
+        for(var i = 0;i<data.data.length;i++){
+            html +=`<option value="${data.data[i].id}">${data.data[i].name}</option>`;
+        }
+        $('#branchInput').html(html);
+    });
+
+
+     $.get('/ListEmployee/GetAllWorkTypes',function(data,textStatus,jqXHR){
+        var html = "";
+        html =`<option selected>Çalışma Tipi Seç</option>`;
+
+        for(var i = 0;i<data.data.length;i++){
+            html +=`<option value="${data.data[i].id}">${data.data[i].name}</option>`;
+        }
+        $('#workTypeInput').html(html);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var userId="";
+    var employeeId="";
+    var startDateToCompany="";
+
+    var d = new Date();
+        var today = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate() + " " + d.getHours() + ":" + d.getMinutes();
+
+
+    $("#next1").click(function() {
+        
+
+        $.post('/ListEmployee/AddUser',
+        {'createDate':today,
+        'name':$('#nameInput').val(),
+        'surname':$('#surnameInput').val(),
+        'identityNumber':$('#identityNumberInput').val(),
+        'address':$('#adressInput').val(),
+        'phone':$('#phoneInput').val(),
+        'ProfilePhoto':$('#nameInput').val(),
+        'birthDate':$('#birthDateInput').val(),
+        'email':$('#emailInput').val(),
+        'gender':$('#genderInput option:selected').val(),
+        'disabilitySituation':$('#disabilityInput').val(),
+        'nationality':$('#nationalityInput').val(),
+        'bloodGroup':$('#bloodGroupInput').val(),
+        'militaryStatus':$('#militaryStatus').val(),
+        'educationalStatus':$('#educationalStatusInput').val(),
+        'completedEducation':$('#CompletedEducationInput').val(),
+        'maritialSituation':$('#maritialStatusInput option:selected').val()
+    },
+    function(data,status){
+        userId= data.data.id;
+    },
+    "json");
+
+      $('#UserInfo').hide('slow');
+      $('#EmployeeInfo').show('slow');
+    });
+
+
+
+
+
+    $("#next2").click(function() {
+
+        $.post('/ListEmployee/AddEmployee',
+        {'createDate':today,
+        'companyEmail':$('#companyEmailInput').val(),
+        'companyPhone':$('#companyPhoneInput').val(),
+        'userName':$('#usernameInput').val(),
+        'password':$('#passwordInput').val(),
+        'startDateToCompany':$('#startdateToCompanyInput').val(),
+        'isActive':true,
+        'userId':userId
+    },
+    function(data,status){
+        startDateToCompany = $('#startdateToCompanyInput').val();
+        employeeId = data.data.id;
+    },
+    "json");
+
+      $('#UserInfo').hide('slow');
+      $('#EmployeeInfo').hide('slow');
+      $('#CareerInfo').show('slow');
+    });
+
+
+
+
+
+    $("#save").click(function() {
+        $.post('/ListEmployee/AddCareer',
+        {'createDate':today,
+        'startDate':startDateToCompany,
+        'endDate':null,
+        'createDate':today,
+        'isActive':true,
+        'branchId':$('#branchInput option:selected').val(),
+        'departmentId':$('#departmentInput option:selected').val(),
+        'employeeId':employeeId,
+        'statusId':$('#statusInput option:selected').val(),
+        'workTypeId':$('#workTypeInput option:selected').val()
+    },
+    function(data,status){
+        userId= data.data.id;
+    },
+    "json");
+    swal("Başarıyla Kaydedildi!","Kullanıcı eklendi!","success").then(function(){
+        window.location.href="/ListEmployee/List";
+    });
+    
+    });
+</script>
+
+
+<style>
+    #EmployeeInfo, #CareerInfo {
+        display: none;
+    }
+</style>
+
